@@ -26,6 +26,7 @@ public class Percolation {
         this.virtualTop = n * n;
         this.virtualBottom = n * n + 1;
         this.wQuickUnion = new WeightedQuickUnionUF(n * n + 2);
+        this.numOpenSites = 0;
     }
 
     // opens the site (row, col) if it is not open already
