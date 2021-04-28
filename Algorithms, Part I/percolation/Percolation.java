@@ -12,7 +12,10 @@ public class Percolation {
     private final int size;
     private final int virtualTop;
     private final int virtualBottom;
-    private final WeightedQuickUnionUF wQuickUnion;
+
+    // We need 2 union-find structure to prevent all open sites at the bottom to be virtually connected
+    private final WeightedQuickUnionUF wquGrid;
+    private final WeightedQuickUnionUF wquExtend;
 
     // create n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -25,7 +28,8 @@ public class Percolation {
         this.size = n;
         this.virtualTop = n * n;
         this.virtualBottom = n * n + 1;
-        this.wQuickUnion = new WeightedQuickUnionUF(n * n + 2);
+        this.wquGrid = new WeightedQuickUnionUF(n * n + 1); // include virtual top
+        this.wquExtend = new WeightedQuickUnionUF(n * n + 2); // include virtual top and bottom
         this.numOpenSites = 0;
     }
 
@@ -39,26 +43,31 @@ public class Percolation {
         grid[row - 1][col - 1] = true;
         numOpenSites++;
 
-        if (row == 1) {
-            wQuickUnion.union(virtualTop, index);
+        if (row == 1) { // top row
+            wquGrid.union(virtualTop, index);
+            wquExtend.union(virtualTop, index);
         }
 
-        if (row == size) {
-            wQuickUnion.union(virtualBottom, index);
+        if (row == size) { // bottom row
+            wquExtend.union(virtualBottom, index);
         }
 
         // connect this site to open neighbors
         if (col < size && grid[row - 1][col]) { // right
-            wQuickUnion.union(index, index + 1);
+            wquGrid.union(index, index + 1);
+            wquExtend.union(index, index + 1);
         }
         if (col - 2 >= 0 && grid[row - 1][col - 2]) { // left
-            wQuickUnion.union(index, index - 1);
+            wquGrid.union(index, index - 1);
+            wquExtend.union(index, index - 1);
         }
         if (row < size && grid[row][col - 1]) { // down
-            wQuickUnion.union(index, index + size);
+            wquGrid.union(index, index + size);
+            wquExtend.union(index, index + size);
         }
         if (row - 2 >= 0 && grid[row - 2][col - 1]) { // up
-            wQuickUnion.union(index, index - size);
+            wquGrid.union(index, index - size);
+            wquExtend.union(index, index - size);
         }
     }
 
@@ -78,7 +87,7 @@ public class Percolation {
         }
 
         int index = getIndex(row, col);
-        return isConnected(virtualTop, index);
+        return wquGrid.find(virtualTop) == wquGrid.find(index);
     }
 
     // returns the number of open sites
@@ -88,15 +97,11 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        return isConnected(virtualTop, virtualBottom);
+        return wquExtend.find(virtualTop) == wquExtend.find(virtualBottom);
     }
 
     // get the index of the site in WeightedQuickUnionUF
     private int getIndex(int row, int col) {
         return (row - 1) * size + col - 1;
-    }
-
-    private boolean isConnected(int p, int q) {
-        return wQuickUnion.find(p) == wQuickUnion.find(q);
     }
 }
