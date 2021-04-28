@@ -7,9 +7,12 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private int[][] grid;
-    private int size;
-    private WeightedQuickUnionUF wQuickUnion;
+    private boolean[][] grid;
+    private int numOpenSites;
+    private final int size;
+    private final int virtualTop;
+    private final int virtualBottom;
+    private final WeightedQuickUnionUF wQuickUnion;
 
     // create n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -18,9 +21,11 @@ public class Percolation {
         }
 
         // site status: 0-blocked, 1-open
-        this.grid = new int[n][n];
+        this.grid = new boolean[n][n];
         this.size = n;
-        this.wQuickUnion = new WeightedQuickUnionUF(n * n);
+        this.virtualTop = n * n;
+        this.virtualBottom = n * n + 1;
+        this.wQuickUnion = new WeightedQuickUnionUF(n * n + 2);
     }
 
     // opens the site (row, col) if it is not open already
@@ -30,19 +35,28 @@ public class Percolation {
         }
 
         int index = getIndex(row, col);
-        grid[row - 1][col - 1] = 1;
+        grid[row - 1][col - 1] = true;
+        numOpenSites++;
+
+        if (row == 1) {
+            wQuickUnion.union(virtualTop, index);
+        }
+
+        if (row == size) {
+            wQuickUnion.union(virtualBottom, index);
+        }
 
         // connect this site to open neighbors
-        if (col < size && grid[row - 1][col] == 1) { // right
+        if (col < size && grid[row - 1][col]) { // right
             wQuickUnion.union(index, index + 1);
         }
-        if (col - 2 >= 0 && grid[row - 1][col - 2] == 1) { // left
+        if (col - 2 >= 0 && grid[row - 1][col - 2]) { // left
             wQuickUnion.union(index, index - 1);
         }
-        if (row < size && grid[row][col - 1] == 1) { // down
+        if (row < size && grid[row][col - 1]) { // down
             wQuickUnion.union(index, index + size);
         }
-        if (row - 2 >= 0 && grid[row - 2][col - 1] == 1) { // up
+        if (row - 2 >= 0 && grid[row - 2][col - 1]) { // up
             wQuickUnion.union(index, index - size);
         }
     }
@@ -53,7 +67,7 @@ public class Percolation {
             throw new IllegalArgumentException("Row or column index out of range");
         }
 
-        return grid[row - 1][col - 1] == 1;
+        return grid[row - 1][col - 1];
     }
 
     // is the site (row, col) full?
@@ -63,36 +77,17 @@ public class Percolation {
         }
 
         int index = getIndex(row, col);
-        for (int i = 0; i < size; i++) {
-            if (isOpen(1, i + 1) && connected(i, index)) {
-                return true;
-            }
-        }
-
-        return false;
+        return isConnected(virtualTop, index);
     }
 
     // returns the number of open sites
     public int numberOfOpenSites() {
-        int numOpen = 0;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (isOpen(i + 1, j + 1)) {
-                    numOpen++;
-                }
-            }
-        }
-        return numOpen;
+        return numOpenSites;
     }
 
     // does the system percolate?
     public boolean percolates() {
-        for (int i = 0; i < size; i++) {
-            if (isFull(size, i + 1)) {
-                return true;
-            }
-        }
-        return false;
+        return isConnected(virtualTop, virtualBottom);
     }
 
     // get the index of the site in WeightedQuickUnionUF
@@ -100,12 +95,7 @@ public class Percolation {
         return (row - 1) * size + col - 1;
     }
 
-    private boolean connected(int p, int q) {
+    private boolean isConnected(int p, int q) {
         return wQuickUnion.find(p) == wQuickUnion.find(q);
-    }
-
-    // test client (optional)
-    public static void main(String[] args) {
-
     }
 }

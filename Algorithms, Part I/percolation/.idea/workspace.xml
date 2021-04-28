@@ -47,7 +47,7 @@
     <configuration name="PercolationStats" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="PercolationStats" />
       <module name="Algorithms, Part I" />
-      <option name="PROGRAM_PARAMETERS" value="2 1000" />
+      <option name="PROGRAM_PARAMETERS" value="200 100" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -64,22 +64,22 @@
     </todo-panel>
   </component>
   <component name="WindowStateProjectService">
-    <state width="2561" height="417" key="GridCell.Tab.0.bottom" timestamp="1619631220134">
+    <state width="2562" height="417" key="GridCell.Tab.0.bottom" timestamp="1619634929277">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2561" height="417" key="GridCell.Tab.0.bottom/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619631220134" />
-    <state width="2561" height="417" key="GridCell.Tab.0.center" timestamp="1619631220134">
+    <state width="2562" height="417" key="GridCell.Tab.0.bottom/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619634929277" />
+    <state width="2562" height="417" key="GridCell.Tab.0.center" timestamp="1619634929276">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2561" height="417" key="GridCell.Tab.0.center/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619631220134" />
-    <state width="2561" height="417" key="GridCell.Tab.0.left" timestamp="1619631220134">
+    <state width="2562" height="417" key="GridCell.Tab.0.center/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619634929276" />
+    <state width="2562" height="417" key="GridCell.Tab.0.left" timestamp="1619634929276">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2561" height="417" key="GridCell.Tab.0.left/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619631220134" />
-    <state width="2561" height="417" key="GridCell.Tab.0.right" timestamp="1619631220134">
+    <state width="2562" height="417" key="GridCell.Tab.0.left/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619634929276" />
+    <state width="2562" height="417" key="GridCell.Tab.0.right" timestamp="1619634929277">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2561" height="417" key="GridCell.Tab.0.right/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619631220134" />
+    <state width="2562" height="417" key="GridCell.Tab.0.right/-3840.0.1536.840/3840.25.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1619634929277" />
     <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1619630378918">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
