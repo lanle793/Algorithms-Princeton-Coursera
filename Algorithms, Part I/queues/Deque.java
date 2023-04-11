@@ -1,4 +1,5 @@
 import java.util.*;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Deque<Item> implements Iterable<Item> {
     List<Item> list;
@@ -58,20 +59,20 @@ public class Deque<Item> implements Iterable<Item> {
     // unit testing (required)
     public static void main(String[] args) {
         Deque deque = new Deque<String>();
-        System.out.println("The deque is empty: " + deque.isEmpty());
+        StdOut.println("The deque is empty: " + deque.isEmpty());
         // deque.removeLast();
         deque.addLast("Disculpe");
         deque.addFirst("Gracias");
-        System.out.println("The deque is empty: " + deque.isEmpty());
-        System.out.println("The deque size is: " + deque.size());
-        System.out.println("Remove first item: " + deque.removeFirst());
+        StdOut.println("The deque is empty: " + deque.isEmpty());
+        StdOut.println("The deque size is: " + deque.size());
+        StdOut.println("Remove first item: " + deque.removeFirst());
         deque.addLast("Mujer");
-        System.out.println("Remove last item: " + deque.removeLast());
+        StdOut.println("Remove last item: " + deque.removeLast());
         deque.addFirst("Hombre");
         deque.addLast("Pan");
         Iterator<String> it = deque.iterator();
         while (it.hasNext()) {
-            System.out.println(it.next());
+            StdOut.println(it.next());
         }
         // deque.addFirst(null);
     }
