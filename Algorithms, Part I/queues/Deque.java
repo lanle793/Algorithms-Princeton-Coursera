@@ -20,21 +20,33 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the front
     public void addFirst(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Cannot add null item");
+        }
         list.add(0, item);
     }
 
     // add the item to the back
     public void addLast(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Cannot add null item");
+        }
         list.add(item);
     }
 
     // remove and return the item from the front
     public Item removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
         return list.remove(0);
     }
 
     // remove and return the item from the back
     public Item removeLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
         return list.remove(size() - 1);
     }
 
@@ -47,6 +59,7 @@ public class Deque<Item> implements Iterable<Item> {
     public static void main(String[] args) {
         Deque deque = new Deque<String>();
         System.out.println("The deque is empty: " + deque.isEmpty());
+        // deque.removeLast();
         deque.addLast("Disculpe");
         deque.addFirst("Gracias");
         System.out.println("The deque is empty: " + deque.isEmpty());
@@ -60,6 +73,7 @@ public class Deque<Item> implements Iterable<Item> {
         while (it.hasNext()) {
             System.out.println(it.next());
         }
+        // deque.addFirst(null);
     }
 
 }
